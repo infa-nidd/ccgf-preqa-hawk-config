@@ -1,0 +1,42 @@
+service:
+  apm:
+    enabled: true
+    loglevel: INFO
+  canary:
+    enabled: false
+  image:
+    repository: ""
+  routes:
+    - path: /discovery
+      comparison: "exact"
+      rewriteUri: /ccgf-discovery
+    - path: /discovery/
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery/
+    - path: /discovery?
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery?
+    - path: /api/discovery
+      comparison: "exact"
+      rewriteUri: /ccgf-discovery
+    - path: /api/discovery/
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery/
+    - path: /api/discovery?
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery?
+    - path: /api/ccgf-discovery
+      comparison: "exact"
+      rewriteUri: /ccgf-discovery
+    - path: /api/ccgf-discovery/
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery/
+    - path: /api/ccgf-discovery?
+      comparison: "prefix"
+      rewriteUri: /ccgf-discovery?
+    - path: /ccgf-discovery
+      comparison: "exact"
+    - path: /ccgf-discovery/
+      comparison: "prefix"
+    - path: /ccgf-discovery?
+      comparison: "prefix"

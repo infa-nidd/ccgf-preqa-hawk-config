@@ -1,0 +1,31 @@
+service:
+  apm:
+    enabled: true
+    loglevel: INFO
+  canary:
+    enabled: false
+  containers:
+    env:
+      - name: filevault.basepath
+        value: kv/data/qa/intcloud/ccgf/common/aws-iicsqa-intcloud-ccgf-eks-devci-usw2
+      - name: database.vaultPath
+        value: rds/mysql
+      - name: vault.url
+        value: https://ha-vault.eks.iicsqa.uswest2.cloudtrust.rocks
+      - name: filevault.landscape
+        value: ccgf-devci-metadata-mgmt
+  hpa:
+    minreplicas: 2
+    maxreplicas: 5
+    custommetric:
+      cpu:
+        average: 320m
+      enabled: true
+      memory:
+        average: 2.4Gi
+  image:
+    repository: ""
+  serviceaccount: ccgf-cms
+  volumes:
+    containerPath:
+    mounts:

@@ -1,0 +1,12 @@
+service:
+  apm:
+    enabled: true
+    loglevel: INFO
+  canary:
+    enabled: false
+  image:
+    repository: ""
+  resources:
+    requests:
+      cpu: 0.00040
+      memory: 530Mi

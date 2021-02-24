@@ -1,0 +1,584 @@
+{
+  "config": {
+    "repo": "ccgf-devci-hawk-config"
+  },
+  "landscape": {
+    "type": "AWS",
+    "env": "dev",
+    "id": "dm",
+    "name": "dm",
+    "displayname": "dm",
+    "help": "dev",
+    "cluster": "aws-iicsqa-intcloud-ccgf-eks-devci-usw2",
+    "aws": {
+      "region": "us-west-2"
+    },
+    "namespaces": {
+      "func": "ccgf-devci-dm-func",
+      "cms": "ccgf-devci-dm-mgmt",
+      "tms": "ccgf-devci-dm-mgmt"
+    },
+    "iamroles": {
+      "mgmt": "arn:aws:iam::530774763960:role/InfaDevCCGFManagementRole",
+      "secret": "arn:aws:iam::530774763960:role/InfaDevCCGFSecretsManagementRole",
+      "func": "arn:aws:iam::530774763960:role/InfaDevCCGFAppRole"
+    },
+    "vault": {
+      "url": "https://ha-vault.eks.iicsqa.uswest2.cloudtrust.rocks",
+      "role": "qa-intcloud-ccgf",
+      "basepath": "qa/intcloud/ccgf/common/aws-iicsqa-intcloud-ccgf-eks-devci-usw2/ccgf-devci-metadata-mgmt",
+      "dbrelpath": "/rds/mysql",
+      "rdbms": [
+        "/resource/RDBMS/RDBMS/MYSQL/active",
+        "/serviceResource/RDBMS/cms/main/system/user/active",
+        "/serviceResource/RDBMS/cms/main/system/admin/active",
+        "/serviceResource/RDBMS/cms/asset/system/admin/active",
+        "/serviceResource/RDBMS/cms/asset/system/user/active",
+        "/serviceResource/RDBMS/tms/common/system/admin/active",
+        "/serviceResource/RDBMS/tms/common/system/user/active"
+      ]
+    },
+    "terraform": {
+        "profile": "ccgf",
+        "version": "0.12.24",
+        "namespace":"ccgf-devci-metadata-mgmt",
+        "gitRepo":"hawk-terraform-non-prod"
+    },
+    "iics": {
+      "certgen": {
+        "serviceaccount": "tms"
+      },
+      "podname": "iics-app1",
+      "url": "dangermouse-ma.hawk.devml.infaqa.com",
+      "podurl": "dangermouse-pod1.hawk.devml.infaqa.com",
+      "vault": {
+        "url": "https://ha-vault.eks.prod.uswest2.cloudtrust.rocks",
+        "role": "iics-usw1-staging"
+      }
+    },
+    "gateways": "[{\"name\":\"ccgf-gateway\"\\,\"isInternal\":\"true\"}\\,{\"name\":\"internal-ccgf-gateway\"\\,\"isInternal\":\"true\"}]",
+    "urls": {
+      "": "https://dangermouse-app.hawk.devml.infaqa.com",
+      "adminuiexternal": "dangermouse-admin.hawk.devml.infaqa.com",
+      "internal": "dangermouse-mgmt.hawk.devml.infaqa.com",
+      "jobmgmtplaneinternal": "",
+      "oiuiexternal": "",
+      "selfserviceuiinternal": "dangermouse-selfregistration.hawk.devml.infaqa.com",
+      "cdmpuiappexternal": ""
+    }
+  },
+  "resources": {
+    "kafka": {
+      "url": "ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com",
+      "kafkaBroker": "b-2.ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com:9094\\\\\",\\\\\"b-1.ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com:9094"
+    },
+    "rds": {
+      "prefix": "ccgf",
+      "url": "ccgf-dev-ci-mysql.cce748qswozo.us-west-2.rds.amazonaws.com",
+      "firstdbs": "cms\\,tms",
+      "dbsprefix": "ccgf-devci-dm"
+    },
+    "s3": {
+      "url": "s3.us-west-2.amazonaws.com",
+      "region": "us-west-2",
+      "bucket": "ccgf-dev-ci-s3"
+    },
+    "redis": {
+      "url": "ccgf-dev-ci-redis.lio3to.ng.0001.usw2.cache.amazonaws.com"
+    },
+    "elastic": {
+      "url": "vpc-ccgf-dev-ci-es-4n6r33ppkx22yrgxdow4k23z54.us-west-2.es.amazonaws.com"
+    },
+    "neptune": {
+      "clusterurl": "ccgf-dev-ci-neptune.cluster-cce748qswozo.us-west-2.neptune.amazonaws.com",
+      "readerurl": "ccgf-dev-ci-neptune.cluster-ro-cce748qswozo.us-west-2.neptune.amazonaws.com"
+    }
+  },
+  "validation": {
+   "jenkins": "ccgf-qa-jenkins",
+    "jenkinsPromote": "cd-Promote-Version-and-Artifacts",
+    "jenkinsTest": "Test-Job",
+     "jenkinsPlatformServiceRegistration": "PlatformServiceRegistration",
+    "jenkinsServiceRegistration": "cd-ServiceRegistration",
+    "jenkinsServiceVersionUpdate": "cd-ServiceVersionUpdate",
+    "disableTest": "Test-Job",
+    "deployFailureEmail": "Hawk-TinTin@informatica.com",
+    "deployFailureEmailCC": "ramaraok@informatica.com",
+    "testFailureEmail": "hawk-build@informatica.com",
+    "testFailureEmailCC": "DL_HawkQE@informatica.com"
+  },
+  "deployment": {
+        "pipeline-version": "0.2.86",
+    "artifacts": {
+      "url": "https://infacloud.jfrog.io/infacloud/",
+      "docker": "infacloud-hawk-dev.jfrog.io",
+      "service": "hawk-dev",
+      "service-test-suffix": "-test-ml",
+      "helm": "hawk-dev-helm",
+      "landscapeProvision": {
+        "name": "ccgf-landscape-provisioning",
+        "version": "0.2.14"
+      },
+      "landscapeConfigMap": {
+        "name": "ccgf-landscape-provisioning",
+        "version": "0.2.10"
+      },
+      "register": "hawk-dev-generic",
+      "credentialsId": "hawk-build-bot"
+    },
+    "services": {
+      "cai": {
+        "urls": {
+          "internal": "TBD",
+          "external": "TBD"
+        }
+      },
+      "ccgf-administrator-ui-app": {
+        "version": {
+          "helm": "0.2.35",
+          "service": ""
+        }
+      },
+      "ccgf-audit": {
+        "version": {
+          "helm": "0.2.35",
+          "service": "1.0.0.50"
+        }
+      },
+      "ccgf-audit-processor": {
+        "version": {
+          "helm": "0.2.18",
+          "service": "1.5.0.31"
+        }
+      },
+      "ccgf-authorization": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.0.0.33"
+        }
+      },
+      "ccgf-bulkfile-processor": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.2.0.81"
+        }
+      },
+      "ccgf-cache-provision": {
+        "version": {
+          "helm": "0.2.17",
+          "service": "1.0.0.14"
+        }
+      },
+      "ccgf-cdlg-app": {
+        "version": {
+          "helm": "0.2.37",
+          "service": "1.1.0.863"
+        }
+      },
+      "ccgf-cloud-deployment-validator": {
+        "version": {
+          "helm": "0.2.7",
+          "service": "1.4.0.58"
+        }
+      },
+      "ccgf-configuration-manager": {
+        "version": {
+          "helm": "0.2.41",
+          "service": "3.12.0.261"
+        }
+      },
+      "ccgf-connection-management": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.1.0.37"
+        }
+      },
+      "ccgf-content": {
+        "version": {
+          "helm": "0.2.37",
+          "service": "1.2.0.124"
+        }
+      },
+      "ccgf-data-source-management": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.6.0.60"
+        }
+      },
+      "ccgf-data-source-management-plane": {
+        "version": {
+          "helm": "0.2.14",
+          "service": "1.0.0.5"
+        }
+      },
+      "ccgf-data-source-management-service": {
+        "version": {
+          "helm": "0.2.14",
+          "service": ""
+        }
+      },
+      "ccgf-database-provision": {
+        "version": {
+          "helm": "0.2.40",
+          "service": "1.0.0.51"
+        }
+      },
+      "ccgf-discovery": {
+        "version": {
+          "helm": "0.2.32",
+          "service": "1.0.0.21"
+        }
+      },
+      "ccgf-discovery-admin": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "1.13.0.59"
+        }
+      },
+      "ccgf-discovery-classification": {
+        "version": {
+          "helm": "0.2.2",
+          "service": "1.0.0.21"
+        }
+      },
+      "ccgf-discovery-classification-job": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "ccgf-discovery-management-plane": {
+        "version": {
+          "helm": "0.2.15",
+          "service": "1.1.0.31"
+        }
+      },
+      "ccgf-discovery-sync": {
+        "version": {
+          "helm": "0.2.1",
+          "service": "1.0.0.13"
+        }
+      },
+      "ccgf-excel-preprocessor": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.0.0.16"
+        }
+      },
+      "ccgf-excel-preprocessor-job": {
+        "version": {
+          "helm": "0.2.33",
+          "service": ""
+        }
+      },
+      "ccgf-file-provision": {
+        "version": {
+          "helm": "0.2.17",
+          "service": "1.0.0.25"
+        }
+      },
+      "ccgf-graph-database-provision": {
+        "version": {
+          "helm": "0.2.38",
+          "service": "1.0.0.22"
+        }
+      },
+      "ccgf-iics-test": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.0.0.20"
+        }
+      },
+      "ccgf-iics-test-dependency": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "ccgf-iics-test-mps": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "ccgf-ingestion": {
+        "version": {
+          "helm": "0.2.37",
+          "service": "1.2.0.202"
+        }
+      },
+      "ccgf-ingestion-processor": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.2.0.92"
+        }
+      },
+      "ccgf-issue-management": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.8.0.73"
+        }
+      },
+      "ccgf-issue-management-mps": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "ccgf-issue-management-plane": {
+        "version": {
+          "helm": "0.2.15",
+          "service": "1.0.0.12"
+        }
+      },
+      "ccgf-job-management": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "1.4.4.136"
+        }
+      },
+      "ccgf-job-management-plane": {
+        "version": {
+          "helm": "0.2.18",
+          "service": "1.2.0.9"
+        }
+      },
+      "ccgf-kubernetes-discovery": {
+        "version": {
+          "helm": "0.2.38",
+          "service": "1.0.0.51"
+        }
+      },
+      "ccgf-logger": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.1.0.175"
+        }
+      },
+      "ccgf-management-plane": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.0.0.88"
+        }
+      },
+      "ccgf-marketplace": {
+        "version": {
+          "helm": "0.2.14",
+          "service": ""
+        }
+      },
+      "ccgf-messaging-provision": {
+        "version": {
+          "helm": "0.2.35",
+          "service": "2.0.0.39"
+        }
+      },
+      "ccgf-metadata-platform-admin-ui-app": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.0.0.145"
+        }
+      },
+      "ccgf-metadata-transfer": {
+        "version": {
+          "helm": "0.2.0",
+          "service": "1.0.0.7"
+        }
+      },
+      "ccgf-mgmt-plane-ui-app": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.1.0.125"
+        }
+      },
+      "ccgf-model": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.5.0.305"
+        }
+      },
+      "ccgf-notification": {
+        "version": {
+          "helm": "0.2.34",
+          "service": "1.0.0.30"
+        }
+      },
+      "ccgf-notification-management-plane": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.0.0.8"
+        }
+      },
+      "ccgf-notification-processor": {
+        "version": {
+          "helm": "0.2.18",
+          "service": "1.3.0.27"
+        }
+      },
+      "ccgf-oi-notification": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.1.0.86"
+        }
+      },
+      "ccgf-oi-notification-management-plane": {
+        "version": {
+          "helm": "0.2.23",
+          "service": "1.0.0.27"
+        }
+      },
+      "ccgf-oi-notification-service-ui-app": {
+        "version": {
+          "helm": "0.2.34",
+          "service": ""
+        }
+      },
+      "ccgf-orchestration-deployer": {
+        "version": {
+          "helm": "0.2.22",
+          "service": ""
+        }
+      },
+      "ccgf-orchestration-dispatcher": {
+        "version": {
+          "helm": "0.2.23",
+          "service": "1.0.0.36"
+        }
+      },
+      "ccgf-orchestration-lifecycle-manager": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.0.0.35"
+        }
+      },
+      "ccgf-orchestration-management-api-server": {
+        "version": {
+          "helm": "0.2.22",
+          "service": "1.6.0.41"
+        }
+      },
+      "ccgf-orchestration-management-plane": {
+        "version": {
+          "helm": "0.2.14",
+          "service": "1.0.0.4"
+        }
+      },
+      "ccgf-rdbms-provision": {
+        "version": {
+          "helm": "0.2.31",
+          "service": ""
+        }
+      },
+      "ccgf-relationship": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "2.0.9.104"
+        }
+      },
+      "ccgf-search": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "1.4.0.230"
+        }
+      },
+      "ccgf-search-provision": {
+        "version": {
+          "helm": "0.2.17",
+          "service": "1.0.0.77"
+        }
+      },
+      "ccgf-self-registration-tenant-ui-app": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "0.1.0.16"
+        }
+      },
+      "ccgf-tenant-management": {
+        "version": {
+          "helm": "0.2.36",
+          "service": "1.9.0.131"
+        }
+      },
+      "ccgf-upload": {
+        "version": {
+          "helm": "0.2.33",
+          "service": "1.1.0.42"
+        }
+      },
+      "cci": {
+        "urls": {
+          "internal": "TBD",
+          "external": "TBD"
+        }
+      },
+      "cdmp-marketplace": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "cdmp-ui-app": {
+        "version": {
+          "helm": "0.2.16",
+          "service": "1.0.0.12"
+        }
+      },
+      "cloud-deployment-validator": {
+        "version": {
+          "helm": "0.2.5",
+          "service": ""
+        }
+      },
+      "cloud-deployment-validator-service": {
+        "version": {
+          "helm": "0.2.7",
+          "service": ""
+        }
+      },
+      "connection-management-service": {
+        "version": {
+          "helm": "0.2.13",
+          "service": ""
+        }
+      },
+      "identity": {
+        "urls": {
+          "external": "TBD"
+        }
+      },
+      "kms": {
+        "version": {
+          "helm": "0.2.2",
+          "service": ""
+        },
+        "urls": {
+          "internal": "TBD",
+          "external": "TBD"
+        }
+      },
+      "ma": {
+        "urls": {
+          "external": "TBD"
+        }
+      },
+      "oi-notification": {
+        "version": {
+          "helm": "0.2.5",
+          "service": ""
+        }
+      },
+      "saas": {
+        "urls": {
+          "internal": "TBD",
+          "external": "TBD"
+        }
+      },
+      "scheduler": {
+        "urls": {
+          "internal": "TBD",
+          "external": "TBD"
+        }
+      }
+    }
+  }
+}
