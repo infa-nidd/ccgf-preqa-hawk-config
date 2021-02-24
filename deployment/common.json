@@ -1,22 +1,22 @@
 {
   "config": {
-    "repo": "ccgf-devci-hawk-config"
+    "repo": "ccgf-preqa-hawk-config"
   },
   "landscape": {
     "type": "AWS",
     "env": "dev",
-    "id": "dm",
-    "name": "dm",
-    "displayname": "dm",
+    "id": "preqa",
+    "name": "preqa",
+    "displayname": "preqa",
     "help": "dev",
     "cluster": "aws-iicsqa-intcloud-ccgf-eks-devci-usw2",
     "aws": {
       "region": "us-west-2"
     },
     "namespaces": {
-      "func": "ccgf-devci-dm-func",
-      "cms": "ccgf-devci-dm-mgmt",
-      "tms": "ccgf-devci-dm-mgmt"
+      "func": "ccgf-preqa-hawk-func",
+      "cms": "ccgf-preqa-hawk-mgmt",
+      "tms": "ccgf-preqa-hawk-mgmt"
     },
     "iamroles": {
       "mgmt": "arn:aws:iam::530774763960:role/InfaDevCCGFManagementRole",
@@ -41,7 +41,7 @@
     "terraform": {
         "profile": "ccgf",
         "version": "0.12.24",
-        "namespace":"ccgf-devci-metadata-mgmt",
+        "namespace":"ccgf-preqa-hawk-mgmt",
         "gitRepo":"hawk-terraform-non-prod"
     },
     "iics": {
@@ -49,8 +49,8 @@
         "serviceaccount": "tms"
       },
       "podname": "iics-app1",
-      "url": "dangermouse-ma.hawk.devml.infaqa.com",
-      "podurl": "dangermouse-pod1.hawk.devml.infaqa.com",
+      "url": "TBD",
+      "podurl": "TBD",
       "vault": {
         "url": "https://ha-vault.eks.prod.uswest2.cloudtrust.rocks",
         "role": "iics-usw1-staging"
@@ -58,40 +58,40 @@
     },
     "gateways": "[{\"name\":\"ccgf-gateway\"\\,\"isInternal\":\"true\"}\\,{\"name\":\"internal-ccgf-gateway\"\\,\"isInternal\":\"true\"}]",
     "urls": {
-      "": "https://dangermouse-app.hawk.devml.infaqa.com",
-      "adminuiexternal": "dangermouse-admin.hawk.devml.infaqa.com",
-      "internal": "dangermouse-mgmt.hawk.devml.infaqa.com",
+      "": "TBD",
+      "adminuiexternal": "TBD",
+      "internal": "TBD",
       "jobmgmtplaneinternal": "",
       "oiuiexternal": "",
-      "selfserviceuiinternal": "dangermouse-selfregistration.hawk.devml.infaqa.com",
+      "selfserviceuiinternal": "TBD",
       "cdmpuiappexternal": ""
     }
   },
   "resources": {
     "kafka": {
-      "url": "ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com",
+      "url": "TBD",
       "kafkaBroker": "b-2.ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com:9094\\\\\",\\\\\"b-1.ccgf-dev-ci-msk.08acbm.c1.kafka.us-west-2.amazonaws.com:9094"
     },
     "rds": {
       "prefix": "ccgf",
-      "url": "ccgf-dev-ci-mysql.cce748qswozo.us-west-2.rds.amazonaws.com",
+      "url": "TBD",
       "firstdbs": "cms\\,tms",
-      "dbsprefix": "ccgf-devci-dm"
+      "dbsprefix": "ccgf-preqa"
     },
     "s3": {
-      "url": "s3.us-west-2.amazonaws.com",
+      "url": "TBD",
       "region": "us-west-2",
-      "bucket": "ccgf-dev-ci-s3"
+      "bucket": "TBD"
     },
     "redis": {
-      "url": "ccgf-dev-ci-redis.lio3to.ng.0001.usw2.cache.amazonaws.com"
+      "url": "TBD"
     },
     "elastic": {
-      "url": "vpc-ccgf-dev-ci-es-4n6r33ppkx22yrgxdow4k23z54.us-west-2.es.amazonaws.com"
+      "url": "TBD"
     },
     "neptune": {
-      "clusterurl": "ccgf-dev-ci-neptune.cluster-cce748qswozo.us-west-2.neptune.amazonaws.com",
-      "readerurl": "ccgf-dev-ci-neptune.cluster-ro-cce748qswozo.us-west-2.neptune.amazonaws.com"
+      "clusterurl": "TBD",
+      "readerurl": "TBD"
     }
   },
   "validation": {
@@ -108,7 +108,7 @@
     "testFailureEmailCC": "DL_HawkQE@informatica.com"
   },
   "deployment": {
-        "pipeline-version": "0.2.86",
+        "pipeline-version": "0.2.103",
     "artifacts": {
       "url": "https://infacloud.jfrog.io/infacloud/",
       "docker": "infacloud-hawk-dev.jfrog.io",
